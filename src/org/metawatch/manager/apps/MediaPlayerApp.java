@@ -50,7 +50,7 @@ public class MediaPlayerApp extends ApplicationBase {
 
 	public void activate(final Context context, int watchType) {
 		if (Preferences.logging) Log.d(MetaWatch.TAG, "Entering media mode");
-		
+			
 		if (watchType == WatchType.DIGITAL) {
 			Protocol.enableButton(1, 0, TOGGLE, MetaWatchService.WatchBuffers.APPLICATION); // right middle - immediate
 			

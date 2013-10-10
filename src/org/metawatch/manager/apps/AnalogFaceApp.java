@@ -34,7 +34,7 @@ public class AnalogFaceApp extends ApplicationBase {
 		return appData;
 	}
 
-  private BroadcastReceiver mReceiver;
+  private static BroadcastReceiver mReceiver;
   
   @Override
 	public void activate(Context context, int watchType) {
