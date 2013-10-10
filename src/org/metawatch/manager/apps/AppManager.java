@@ -24,6 +24,8 @@ public class AppManager {
 			addApp(new ActionsApp());
 		if (getApp(CalendarApp.APP_ID)==null)
 			addApp(new CalendarApp());
+		if (getApp(AnalogFaceApp.APP_ID)==null)
+			addApp(new AnalogFaceApp());
 	}
 	
 	public static void addApp(ApplicationBase app) {
