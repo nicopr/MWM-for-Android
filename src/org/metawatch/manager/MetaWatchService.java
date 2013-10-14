@@ -115,11 +115,11 @@ public class MetaWatchService extends Service {
 		
 	}
 
-	final static class ConnectionState {
-		static final int DISCONNECTED = 0;
-		static final int CONNECTING = 1;
-		static final int CONNECTED = 2;
-		static final int DISCONNECTING = 3;
+	public final static class ConnectionState {
+		public static final int DISCONNECTED = 0;
+		public static final int CONNECTING = 1;
+		public static final int CONNECTED = 2;
+		public static final int DISCONNECTING = 3;
 	}
 
 	public final static class WatchBuffers {
@@ -1241,11 +1241,21 @@ public class MetaWatchService extends Service {
 					switch (button) {
 					
 					case Idle.LEFT_QUICK_BUTTON:
-						Idle.quickButtonAction(context, Preferences.quickButtonL);
+						if (!BiCowidget.checkBiCo())
+							Idle.quickButtonAction(context, Preferences.quickButtonL);
+						else {
+							sendBroadcast(new Intent("org.metawatch.manager.BUTTON_PRESS_LEFT"));
+							Log.d("Metawatch","Button press Left broadcast sent to Bico");
+						}
 						break;
 					
 					case Idle.RIGHT_QUICK_BUTTON:
-						Idle.quickButtonAction(context, Preferences.quickButtonR);
+						if (!BiCowidget.checkBiCo())
+							Idle.quickButtonAction(context, Preferences.quickButtonR);
+						else {
+							sendBroadcast(new Intent("org.metawatch.manager.BUTTON_PRESS_RIGHT"));
+							Log.d("Metawatch","Button press right broadcast sent to Bico");
+						}
 						break;
 						
 					case Idle.IDLE_NEXT_PAGE:							

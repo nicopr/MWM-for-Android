@@ -1,10 +1,14 @@
 package org.metawatch.manager.apps;
 
 import java.util.Calendar;
+
 import org.metawatch.communityedition.R;
-import org.metawatch.manager.FontCache;
+import org.metawatch.manager.MetaWatch;
 import org.metawatch.manager.MetaWatchService;
 import org.metawatch.manager.Protocol;
+import org.metawatch.manager.MetaWatchService.ConnectionState;
+import org.metawatch.manager.MetaWatchService.Preferences;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +18,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint.Align;
-import android.text.TextPaint;
+import android.util.Log;
 
 public class AnalogFaceApp extends ApplicationBase {
 
@@ -39,29 +42,59 @@ public class AnalogFaceApp extends ApplicationBase {
   @Override
 	public void activate(Context context, int watchType) {
 
-	  mReceiver = new BroadcastReceiver() {
-		    @Override
-		    public void onReceive(Context context, Intent intent) {   	
-		    	/*
-		    	 *  following is probably not best solution: could not get the more logical call
-		    	 *  	Application.updateAppMode(context);
-		    	 *  nor
-		    	 *		Bitmap bitmap = update(context, false, MetaWatchService.watchType);
-		    	 *  	Application.updateAppMode(context, bitmap);
-		    	 *  work properly. Help required
-		    	 */
-		    	Bitmap bitmap = update(context, false, MetaWatchService.watchType);
-		    	Protocol.sendLcdBitmap(bitmap, MetaWatchService.WatchBuffers.APPLICATION);
-				Protocol.updateLcdDisplay(MetaWatchService.WatchBuffers.APPLICATION);		    	
-		    }
-	  };
+		if (Preferences.logging) Log.d(MetaWatch.TAG, "Activating AnalogFaceApp");	
+
+		if (!MetaWatch.analogFaceAppStarted) {
+			mReceiver = new BroadcastReceiver() {
+			    @Override
+			    public void onReceive(Context context, Intent intent) {   	
+			    	/*
+			    	 * first check if watched connected
+			    	 * else, unregister Time Tick service and do nothing
+			    	 */
+					if (MetaWatchService.connectionState != ConnectionState.CONNECTED) {
+						
+						if (Preferences.logging) Log.d(MetaWatch.TAG, "Lost connexion to watch, unregistering TIME_TICK");
+	
+						context.unregisterReceiver(mReceiver);
+						MetaWatch.analogFaceAppStarted=false; // app will get restarted and reregistered next time
+	
+					}
+					else {
+				    	if (Preferences.logging) Log.d(MetaWatch.TAG, "Received TIME_TICK");
+				    	
+						/*
+				    	 *  following is probably not best solution: could not get the more logical call
+				    	 *  	Application.updateAppMode(context);
+				    	 *  nor
+				    	 *		Bitmap bitmap = update(context, false, MetaWatchService.watchType);
+				    	 *  	Application.updateAppMode(context, bitmap);
+				    	 *  work properly. Help required
+				    	 */	
+				    	Bitmap bitmap = update(context, false, MetaWatchService.watchType);
+				    	Protocol.sendLcdBitmap(bitmap, MetaWatchService.WatchBuffers.APPLICATION);
+						Protocol.updateLcdDisplay(MetaWatchService.WatchBuffers.APPLICATION);
+					}
+			    }
+			};
+	
+			if (Preferences.logging) Log.d(MetaWatch.TAG, "Registering TIME_TICK");
+	
+			context.registerReceiver (mReceiver, new IntentFilter("android.intent.action.TIME_TICK"));
+			MetaWatch.analogFaceAppStarted=true;				
+		}
+		else
+			if (Preferences.logging) Log.d(MetaWatch.TAG, "Already registered, do nothing");
 		
-		context.registerReceiver (mReceiver, new IntentFilter("android.intent.action.TIME_TICK"));
 	}
 
 	@Override
 	public void deactivate(Context context, int watchType) {
+		
+		if (Preferences.logging) Log.d(MetaWatch.TAG, "Deactivating AnalogFaceApp, unregistering TIME_TICK");
+
 		context.unregisterReceiver(mReceiver);
+		MetaWatch.analogFaceAppStarted=false;
 	}
 	
 	public Bitmap update(Context context, boolean preview, int watchType) {

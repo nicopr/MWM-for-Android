@@ -68,6 +68,8 @@ public class MetaWatch extends TabActivity {
     
     private static Context context = null;
         
+    public static boolean analogFaceAppStarted=false; // used to avoid multiple launches of AnalogFaceApp leading to multiple Time Tick receiver registration
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

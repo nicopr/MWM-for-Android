@@ -3,11 +3,14 @@ package org.metawatch.manager.widgets;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.metawatch.manager.BiCowidget;
+import org.metawatch.manager.MetaWatch;
 import org.metawatch.manager.MetaWatchService;
 import org.metawatch.manager.MetaWatchService.Preferences;
 import org.metawatch.manager.widgets.InternalWidget.WidgetData;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 public class WidgetRow {
 	
@@ -97,13 +100,25 @@ public class WidgetRow {
 		
 		final float space = (float)(screenWidth()-totalWidth)/(float)(2*(widgets.size()));		
 		float x=space;
+		BiCowidget.clearBiCo();
+		
 		for(WidgetData widget : widgets) {
 			int yAdd = 0;
 			if(widget.height<totalHeight)
 				yAdd = (totalHeight/2)-(widget.height/2);
 
-			if ( !(Preferences.hideEmptyWidgets && Preferences.hiddenWidgetsReserveSpace && (widget.priority < 1))) 
+			if ( !(Preferences.hideEmptyWidgets && Preferences.hiddenWidgetsReserveSpace && (widget.priority < 1))) {
+
+/*
+ * Test if BiCo widget is active: if yes, we will reallocate quick buttons to BiCo controls (ex. Pause/Resume track recording)	
+ * set BiCowidget to active			
+ */
+				if (widget.id.contains("BiCo")){
+					BiCowidget.setBiCo();
+				}			
+
 				canvas.drawBitmap(widget.bitmap, (int)x, y+yAdd, null);
+			}
 			
 			x += ((space*2)+widget.width);
 		}	
