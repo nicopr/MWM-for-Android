@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MetaWatch</string>
+    <string name="app_name">MetaWatch CE</string>
     <string name="app_name_long">MetaWatch Manager - Community Edition</string>
     
     <string name="settings_Notifications">Notifications</string>
@@ -388,7 +388,7 @@
 	<string name="error_bluetooth_not_supported">Can\'t connect to Watch, Bluetooth is not supported.</string>
 	<string name="error_bluetooth_not_enabled">Can\'t connect to Watch, Bluetooth is disabled.  Enable Bluetooth and try again.</string>
     
-	<string name="status_loading">...loading...</string>
+	<string name="status_loading">settings_apps_analog_face_show_day_of_month</string>
 	
 	<string name="status_weather_last_updated">Weather Last Updated:</string>
 	<string name="status_weather_forecast">Forecast:</string>
@@ -408,5 +408,9 @@
 	<string name="settings_Inverse_Media_Player_Buttons_desc">Changes the order of the volume up/next song and volume down/previous song buttons</string>
 	
 	<string name="widget_picker_title">Select a widget</string>
+	<string name="settings_apps_analog_face_show_day_of_month">display &quot;day of month&quot;</string>
+	<string name="settings_apps_analog_face_show_day_of_month_desc">in a little rectangle in the analog face view</string>
+	<string name="settings_apps_analog_face_show_day_of_week">display &quot;day of week&quot;</string>
+	<string name="settings_apps_analog_face_show_day_of_week_desc">in a little rectangle in the analog face view</string>
 	
 </resources>

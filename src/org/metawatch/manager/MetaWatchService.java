@@ -224,6 +224,8 @@ public class MetaWatchService extends Service {
 		public static boolean hideEmptyWidgets = false;
 		public static boolean inverseMediaPlayerButtons = false;
 		public static boolean clockOnAppScreens = false;
+		public static boolean DayOfMonthOnAnalogFace = false;
+		public static boolean DayOfWeekOnAnalogFace = false;
 		public static boolean hiddenWidgetsReserveSpace = false;
 		public static boolean showTestWidgets = false;
 		public static boolean alignWidgetRowToBottom = false;
@@ -386,6 +388,10 @@ public class MetaWatchService extends Service {
 				Preferences.inverseMediaPlayerButtons);
 		Preferences.clockOnAppScreens = sharedPreferences.getBoolean("ClockOnAppBuffers",
 				Preferences.clockOnAppScreens);
+		Preferences.DayOfMonthOnAnalogFace = sharedPreferences.getBoolean("DayOfMonthOnAnalogFaceApp",
+				Preferences.DayOfMonthOnAnalogFace);
+		Preferences.DayOfWeekOnAnalogFace = sharedPreferences.getBoolean("DayOfWeekOnAnalogFaceApp",
+				Preferences.DayOfWeekOnAnalogFace);
 		Preferences.showTestWidgets = sharedPreferences.getBoolean("TestWidgets", 
 				Preferences.showTestWidgets);
 		Preferences.hiddenWidgetsReserveSpace = sharedPreferences.getBoolean("HiddenWidgetsReserveSpace",
@@ -712,8 +718,8 @@ public class MetaWatchService extends Service {
 			// RM: This is disabled for now, as it seems to confuse the watch fw (3.1.0S tested)
 			// and get it into a state where it won't accept any date/time format updates :-S
 			
-			//if( Preferences.autoClockFormat )
-			//	Protocol.setTimeDateFormat(this);
+			if( Preferences.autoClockFormat )
+				Protocol.setTimeDateFormat(this);
 			
 			Protocol.getDeviceType();
 			
@@ -1102,11 +1108,8 @@ public class MetaWatchService extends Service {
 					}
 					
 				}
-				
-				/*
-				 * changed from Protocol.getRealTimeClock() - fix from DRM
-				 */
-				Protocol.setRealTimeClock(context);		
+			
+				Protocol.getRealTimeClock();
 				
 				SharedPreferences sharedPreferences = PreferenceManager
 						.getDefaultSharedPreferences(context);

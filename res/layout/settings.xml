@@ -393,7 +393,21 @@
 		    android:defaultValue="false"
 		    />
 
-	</PreferenceScreen>	
+		<CheckBoxPreference
+		    android:title="@string/settings_apps_analog_face_show_day_of_month"
+		    android:key="DayOfMonthOnAnalogFaceApp"
+		    android:summary="@string/settings_apps_analog_face_show_day_of_month_desc"
+		    android:defaultValue="false"
+		    />
+
+		<CheckBoxPreference
+		    android:title="@string/settings_apps_analog_face_show_day_of_week"
+		    android:key="DayOfWeekOnAnalogFaceApp"
+		    android:summary="@string/settings_apps_analog_face_show_day_of_week_desc"
+		    android:defaultValue="false"
+		    />
+
+					</PreferenceScreen>	
 
 	<PreferenceScreen
 	    android:title="@string/settings_calendar_screen"
@@ -673,13 +687,12 @@
 			android:summary="@string/settings_haptic_feedback_desc"
 			android:defaultValue="false"
 			/>	
-		<!-- RM: disabled for now, confuses firmware!
 		<CheckBoxPreference
 		    android:title="@string/settings_auto_clock_format"
 		    android:key="AutoClockFormat"
 		    android:summary="@string/settings_auto_clock_format_desc"
 		    android:defaultValue="false"
-		    />   -->
+		    />
 			
 		<CheckBoxPreference
 		    android:title="@string/settings_notification_queue"

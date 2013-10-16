@@ -407,5 +407,9 @@
 	<string name="status_notification_queue">Taille de la queue des notifications:</string>
 	
 	<string name="widget_picker_title">Selectionnez un widget</string>
+	<string name="settings_apps_analog_face_show_day_of_month">Afficher le jour du mois</string>
+	<string name="settings_apps_analog_face_show_day_of_month_desc">dans un rectangle sur l\'affichage montre analogique</string>
+	<string name="settings_apps_analog_face_show_day_of_week">Afficher le jour de la semaine</string>
+	<string name="settings_apps_analog_face_show_day_of_week_desc">dans un rectangle sur l\'affichage montre analogique</string>
 	
 </resources>

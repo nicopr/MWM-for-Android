@@ -1,8 +1,11 @@
 package org.metawatch.manager.apps;
 
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
+import java.util.Locale;
 
 import org.metawatch.communityedition.R;
+import org.metawatch.manager.FontCache;
 import org.metawatch.manager.MetaWatch;
 import org.metawatch.manager.MetaWatchService;
 import org.metawatch.manager.Protocol;
@@ -18,6 +21,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.text.TextPaint;
 import android.util.Log;
 
 public class AnalogFaceApp extends ApplicationBase {
@@ -98,6 +102,7 @@ public class AnalogFaceApp extends ApplicationBase {
 	}
 	
 	public Bitmap update(Context context, boolean preview, int watchType) {
+
 		Bitmap bitmap = Bitmap.createBitmap(96, 96, Bitmap.Config.RGB_565);
 		Canvas canvas = new Canvas(bitmap);
 		canvas.drawColor(Color.WHITE);	
@@ -106,6 +111,34 @@ public class AnalogFaceApp extends ApplicationBase {
 			
 		Calendar cal=Calendar.getInstance();
 		
+		if (Preferences.DayOfMonthOnAnalogFace) {
+			TextPaint paintMediumOutline = new TextPaint();
+			paintMediumOutline.setColor(Color.BLACK);
+			paintMediumOutline.setTextSize(FontCache.instance(context).Medium.size);
+			paintMediumOutline.setTypeface(FontCache.instance(context).Medium.face);
+			paintMediumOutline.setTextAlign(TextPaint.Align.CENTER);
+			
+			canvas.drawRect(65,43,82,54,paintMediumOutline);
+			paintMediumOutline.setColor(Color.WHITE);
+			canvas.drawRect(67,45,80,52,paintMediumOutline);
+			paintMediumOutline.setColor(Color.BLACK);
+			
+			canvas.drawText(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)), 74, 52, paintMediumOutline);
+
+			if (Preferences.DayOfWeekOnAnalogFace) {
+				canvas.drawRect(14,43,40,54,paintMediumOutline);
+				paintMediumOutline.setColor(Color.WHITE);
+				canvas.drawRect(16,45,38,52,paintMediumOutline);
+				paintMediumOutline.setColor(Color.BLACK);
+				
+				String dayOfWeek=cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+				//crop to first 3 char. Using SHORT would not necessarily improve, FR locale for instance gives 4 char return, with '.' as last, for instance "MER."
+				dayOfWeek=dayOfWeek.substring(0,(dayOfWeek.length()<3 ? dayOfWeek.length() : 3)); 
+				
+				canvas.drawText(dayOfWeek, 27, 52, paintMediumOutline);
+			}
+		}
+
 		Bitmap minute = BitmapFactory.decodeResource(context.getResources(), R.drawable.minhand);
 		Bitmap hour = BitmapFactory.decodeResource(context.getResources(), R.drawable.hourhand);
 		
@@ -118,7 +151,7 @@ public class AnalogFaceApp extends ApplicationBase {
 		matrixhour.reset();
 		matrixhour.postRotate( cal.get(Calendar.HOUR)*30 + cal.get(Calendar.MINUTE)/2, 48,48);
 		canvas.drawBitmap(hour, matrixhour, null); 
-		
+				
 		return bitmap;
 	}
 	
