@@ -232,6 +232,7 @@ public class MetaWatchService extends Service {
 		public static boolean displayWidgetIconOnTop = true;
 		public static String displayCalendars = "";
 		public static int calendarLookahead = 24;
+		public static boolean defaultQuickButtonLForBiCo = true;
 	}
 
 	public final class WatchType {
@@ -402,6 +403,8 @@ public class MetaWatchService extends Service {
 				Preferences.displayWidgetIconOnTop);
 		Preferences.displayCalendars = sharedPreferences.getString("DisplayCalendars", 
 				Preferences.displayCalendars);
+		Preferences.defaultQuickButtonLForBiCo = sharedPreferences.getBoolean("defaultQuickButtonLForBiCo", 
+				Preferences.defaultQuickButtonLForBiCo);
 		
 		
 		boolean silent = sharedPreferences.getBoolean("SilentMode", silentMode );
@@ -1244,7 +1247,7 @@ public class MetaWatchService extends Service {
 					switch (button) {
 					
 					case Idle.LEFT_QUICK_BUTTON:
-						if (!BiCowidget.checkBiCo())
+						if (!BiCowidget.checkBiCo()||Preferences.defaultQuickButtonLForBiCo)
 							Idle.quickButtonAction(context, Preferences.quickButtonL);
 						else {
 							sendBroadcast(new Intent("org.metawatch.manager.BUTTON_PRESS_LEFT"));
@@ -1258,6 +1261,14 @@ public class MetaWatchService extends Service {
 						else {
 							sendBroadcast(new Intent("org.metawatch.manager.BUTTON_PRESS_RIGHT"));
 							Log.d("Metawatch","Button press right broadcast sent to Bico");
+						}
+						break;
+						
+					case Idle.RIGHT_QUICK_BUTTON_LONG:
+						if (BiCowidget.checkBiCo())
+						{
+							sendBroadcast(new Intent("org.metawatch.manager.BUTTON_PRESS_RIGHT_LONG"));
+							Log.d("Metawatch","Button press right long broadcast sent to Bico");
 						}
 						break;
 						

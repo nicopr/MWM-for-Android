@@ -412,5 +412,8 @@
 	<string name="settings_apps_analog_face_show_day_of_month_desc">in a little rectangle in the analog face view</string>
 	<string name="settings_apps_analog_face_show_day_of_week">display &quot;day of week&quot;</string>
 	<string name="settings_apps_analog_face_show_day_of_week_desc">in a little rectangle in the analog face view</string>
+	<string name="settings_Leave_left_quickbutton_default_during_BiCo">Keep default quickbutton </string>
+	<string name="settings_Leave_left_quickbutton_default_during_BiCo_desc">action while BiCo widget is active</string>
+	<string name="settings_BiCo_widget">BiCo Widget</string>
 	
 </resources>

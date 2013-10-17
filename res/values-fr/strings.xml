@@ -411,5 +411,8 @@
 	<string name="settings_apps_analog_face_show_day_of_month_desc">dans un rectangle sur l\'affichage montre analogique</string>
 	<string name="settings_apps_analog_face_show_day_of_week">Afficher le jour de la semaine</string>
 	<string name="settings_apps_analog_face_show_day_of_week_desc">dans un rectangle sur l\'affichage montre analogique</string>
+	<string name="settings_BiCo_widget">Widget BiCo</string>
+	<string name="settings_Leave_left_quickbutton_default_during_BiCo">Conserver l\'action par défaut</string>
+	<string name="settings_Leave_left_quickbutton_default_during_BiCo_desc">du bouton centre gauche pendant l\'exécution d\'un widget BiCo</string>
 	
 </resources>

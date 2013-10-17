@@ -545,9 +545,21 @@
 				/>
 		</PreferenceScreen>
 			    
+		<PreferenceScreen
+		    android:title="@string/settings_BiCo_widget"
+		    >	    
+		    
+			<CheckBoxPreference
+				android:title="@string/settings_Leave_left_quickbutton_default_during_BiCo"
+				android:key="defaultQuickButtonLForBiCo"
+				android:summary="@string/settings_Leave_left_quickbutton_default_during_BiCo_desc"
+				android:defaultValue="true"
+				/>
+		</PreferenceScreen>
+			    	
 	</PreferenceScreen>
 	
-	<PreferenceScreen
+		<PreferenceScreen
 	    android:title="@string/settings_watch_apps"
 	    android:key="WatchAppsScreen"
 	    >

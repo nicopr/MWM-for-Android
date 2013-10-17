@@ -68,6 +68,7 @@ public class Idle {
 	final static byte RIGHT_QUICK_BUTTON = 62;
 	final static byte TOGGLE_SILENT = 63;
 	final static byte LEFT_QUICK_BUTTON = 64;
+	final static byte RIGHT_QUICK_BUTTON_LONG=65;
 	
 	private static boolean busy = false;
 	private static Object busyObj = new Object();
@@ -111,6 +112,8 @@ public class Idle {
 				if (watchType == MetaWatchService.WatchType.DIGITAL) {
 					Protocol.disableButton(1, 0, MetaWatchService.WatchBuffers.IDLE); // Disable built in action for Right middle immediate
 					Protocol.enableButton(1, 1, Idle.RIGHT_QUICK_BUTTON, screenMode(watchType)); // Right middle - press
+					Protocol.enableButton(1, 2, Idle.RIGHT_QUICK_BUTTON_LONG, screenMode(watchType)); // Right middle - long press
+					Protocol.enableButton(1, 3, Idle.RIGHT_QUICK_BUTTON_LONG, screenMode(watchType)); // Right middle - long press
 				}
 			//}
 		}
@@ -119,6 +122,8 @@ public class Idle {
 			//if (Preferences.quickButton != QuickButton.DISABLED) {
 				if (watchType == MetaWatchService.WatchType.DIGITAL) {
 					Protocol.disableButton(1, 1, screenMode(watchType)); // Right middle - press
+					Protocol.disableButton(1, 2, screenMode(watchType)); // Right middle - press
+					Protocol.disableButton(1, 3, screenMode(watchType)); // Right middle - press
 				}
 			//}
 		}
@@ -352,6 +357,7 @@ public class Idle {
 			}
 			
 			if (refresh)
+
 				widgetData = WidgetManager.refreshWidgets(context, widgetsDesired);
 			else
 				widgetData = WidgetManager.getCachedWidgets(context, widgetsDesired);
@@ -423,7 +429,7 @@ public class Idle {
 		finally {
 			setBusy(false);
 		}
-		
+				
 		if (Preferences.logging) Log.d(MetaWatch.TAG, "Idle.updateIdlePages end");
 	}
 
