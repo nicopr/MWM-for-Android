@@ -1111,8 +1111,10 @@ public class MetaWatchService extends Service {
 					}
 					
 				}
-			
-				Protocol.getRealTimeClock();
+/*			
+ * changed from Protocol.getRealTimeClock() - fix from DRM, as watch >1.35 does not support getRealTimeClock() any longer
+ */
+				Protocol.setRealTimeClock(context);
 				
 				SharedPreferences sharedPreferences = PreferenceManager
 						.getDefaultSharedPreferences(context);
