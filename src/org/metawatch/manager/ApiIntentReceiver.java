@@ -82,15 +82,20 @@ public class ApiIntentReceiver extends BroadcastReceiver {
 				
 			} 
 			return;
-		}
-		
-		else if (action.equals("org.metawatch.manager.WIDGET_UPDATE")) {
+			
+		} else if (action.equals("org.metawatch.manager.ENVELOPPE")) {
+			
+			if (intent.hasExtra("enveloppe")) 
+				Protocol.enqueue(intent.getByteArrayExtra("enveloppe"));
+			
+			return;
+			
+		} else if (action.equals("org.metawatch.manager.WIDGET_UPDATE")) {
 			if (Preferences.logging) Log.d(MetaWatch.TAG, "WIDGET_UPDATE received");
 			WidgetManager.getFromIntent(context, intent);
 			return;
-		}
-		
-		else if (action.equals("org.metawatch.manager.APPLICATION_START") ||
+			
+		} else if (action.equals("org.metawatch.manager.APPLICATION_START") ||
 			action.equals("org.metawatch.manager.APPLICATION_ANNOUNCE")) {
 			String id = intent.hasExtra("id") ? intent.getStringExtra("id") : "anonymous";
 			String name = intent.hasExtra("name") ? intent.getStringExtra("name") : "External App";

@@ -119,6 +119,9 @@ public enum eMessageType
   
   QueryMemoryMsg(0xd0),
     
+  SetupAccelerometerMessage(0xe1),
+  AccelerometerDataResponse(0xe0),
+    
   AccelerometerSteps(0xea),
   AccelerometerRawData(0xeb);
   public final byte msg;

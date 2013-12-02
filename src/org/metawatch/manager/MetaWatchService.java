@@ -1181,6 +1181,34 @@ public class MetaWatchService extends Service {
 				
 				Protocol.setRealTimeClock(context);
 				
+			} else if (bytes[2] == eMessageType.AccelerometerDataResponse.msg) {
+				if (bytes[1]==7) {
+				    	if (Preferences.logging) Log.d(MetaWatch.TAG, "Tilt ot Tap detected, assuming Tap " + bytes[4]);
+				    	if ((bytes[4]&0x4)!=0) { // single tap
+				    		
+							sendBroadcast(new Intent("org.metawatch.manager.ACCEL_SINGLE_TAP_DETECTED"));
+							Log.d("Metawatch","Single tap detected broadcast sent");
+							
+				    	} else if ((bytes[4]&0x8)!=0) { // double tap
+				    		
+							sendBroadcast(new Intent("org.metawatch.manager.ACCEL_DOUBLE_TAP_DETECTED"));
+							Log.d("Metawatch","Double tap detected broadcast sent");
+				    	}
+				    	
+						Log.d("Metawatch","Tap detected broadcast sent");
+				    	Intent intent = new Intent("org.metawatch.manager.ACCEL_TAP_DETECTED");
+				    	intent.putExtra("type", (bytes[4]&0x4)!=0 ? 0 : 1);
+				    	sendBroadcast(intent);
+				} else if (bytes[1]==9) {
+					byte x = bytes[4];
+					byte y = bytes[5];
+					byte z = bytes[6];
+					if (Preferences.logging) Log.d(MetaWatch.TAG,
+							"MetaWatchService.readFromDevice(): received long accelerometer response."
+									+ " x=" + x
+									+ " y=" + y
+									+ " z=" + z);
+				}				    	
 			} else {
 				if (Preferences.logging) Log.d(MetaWatch.TAG,
 						"MetaWatchService.readFromDevice(): Unknown message : 0x"+Integer.toString((bytes[2] & 0xff) + 0x100, 16).substring(1) + ", ");
