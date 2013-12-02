@@ -407,7 +407,21 @@
 		    android:defaultValue="false"
 		    />
 
-					</PreferenceScreen>	
+		<CheckBoxPreference
+		    android:title="@string/settings_apps_analog_face_show_horizontal"
+		    android:key="ShowHorizontalOnAnalogFaceApp"
+		    android:summary="@string/settings_apps_analog_face_show_horizontal_desc"
+		    android:defaultValue="false"
+		    />
+
+				<CheckBoxPreference
+		    android:title="@string/settings_apps_analog_face_show_frame"
+		    android:key="FrameAroundDateAndMonthOnAnalogFaceApp"
+		    android:summary="@string/settings_apps_analog_face_show_frame_desc"
+		    android:defaultValue="false"
+		    />
+
+			</PreferenceScreen>	
 
 	<PreferenceScreen
 	    android:title="@string/settings_calendar_screen"

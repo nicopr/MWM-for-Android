@@ -253,11 +253,13 @@ public class Notification {
 							
 							if (notifyButtonPress==NOTIFICATION_UP && currentNotificationPage>0) {
 								currentNotificationPage--;
+								startTicks = System.currentTimeMillis();
 								Protocol.sendLcdBitmap(notification.bitmaps[currentNotificationPage],
 										MetaWatchService.WatchBuffers.NOTIFICATION);
 							}
 							else if (notifyButtonPress==NOTIFICATION_DOWN && currentNotificationPage<notification.bitmaps.length-1) {
 								currentNotificationPage++;
+								startTicks = System.currentTimeMillis();
 								Protocol.sendLcdBitmap(notification.bitmaps[currentNotificationPage],
 										MetaWatchService.WatchBuffers.NOTIFICATION);
 							}

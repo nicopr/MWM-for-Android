@@ -414,5 +414,9 @@
 	<string name="settings_BiCo_widget">Widget BiCo</string>
 	<string name="settings_Leave_left_quickbutton_default_during_BiCo">Conserver l\'action par défaut</string>
 	<string name="settings_Leave_left_quickbutton_default_during_BiCo_desc">du bouton centre gauche pendant l\'exécution d\'un widget BiCo</string>
+	<string name="settings_apps_analog_face_show_horizontal">Jour de la semaine et date</string>
+	<string name="settings_apps_analog_face_show_frame">Affiche un cadre</string>
+	<string name="settings_apps_analog_face_show_frame_desc">autour de jour de la semaine et date</string>
+	<string name="settings_apps_analog_face_show_horizontal_desc">sont affichés respectivement à 9h et 3h</string>
 	
 </resources>

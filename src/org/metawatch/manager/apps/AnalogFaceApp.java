@@ -1,6 +1,5 @@
 package org.metawatch.manager.apps;
 
-import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -112,30 +111,81 @@ public class AnalogFaceApp extends ApplicationBase {
 		Calendar cal=Calendar.getInstance();
 		
 		if (Preferences.DayOfMonthOnAnalogFace) {
+			int x;
+			int y;
+			int rectXleft;
+			int rectXright;
+			int rectYtop;
+			int rectYbottom;
+
+			if (Preferences.ShowHorizontalOnAnalogFace) {
+				x=74;
+				y=52;
+				rectXleft=65;
+				rectXright=82;
+				rectYtop=43;
+				rectYbottom=54;
+			} else {
+				x=48;
+				y=77;
+				if (Preferences.DayOfWeekOnAnalogFace) {
+					rectXleft=35;
+					rectXright=61;
+				} else {
+					rectXleft=39;
+					rectXright=57;
+				}
+				rectYtop=68;
+				rectYbottom=79;				
+			}
+			
 			TextPaint paintMediumOutline = new TextPaint();
 			paintMediumOutline.setColor(Color.BLACK);
 			paintMediumOutline.setTextSize(FontCache.instance(context).Medium.size);
 			paintMediumOutline.setTypeface(FontCache.instance(context).Medium.face);
 			paintMediumOutline.setTextAlign(TextPaint.Align.CENTER);
 			
-			canvas.drawRect(65,43,82,54,paintMediumOutline);
-			paintMediumOutline.setColor(Color.WHITE);
-			canvas.drawRect(67,45,80,52,paintMediumOutline);
-			paintMediumOutline.setColor(Color.BLACK);
+			if (Preferences.FrameAroundDateAndMonthOnAnalogFace) {
+				canvas.drawRect(rectXleft,rectYtop,rectXright,rectYbottom,paintMediumOutline);
+				paintMediumOutline.setColor(Color.WHITE);
+				canvas.drawRect(rectXleft+2,rectYtop+2,rectXright-2,rectYbottom-2,paintMediumOutline);
+				paintMediumOutline.setColor(Color.BLACK);
+			}
 			
-			canvas.drawText(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)), 74, 52, paintMediumOutline);
+			canvas.drawText(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)), x, y, paintMediumOutline);
 
 			if (Preferences.DayOfWeekOnAnalogFace) {
-				canvas.drawRect(14,43,40,54,paintMediumOutline);
-				paintMediumOutline.setColor(Color.WHITE);
-				canvas.drawRect(16,45,38,52,paintMediumOutline);
-				paintMediumOutline.setColor(Color.BLACK);
+				if (Preferences.ShowHorizontalOnAnalogFace) {
+					x=27;
+					y=52;
+					rectXleft=14;
+					rectXright=40;
+					rectYtop=43;
+					rectYbottom=54;
+				} else {
+					x=48;
+					y=68;
+					rectXleft=35;
+					rectXright=61;
+					rectYtop=59;
+					rectYbottom=70;				
+				}
+				
+				if (Preferences.FrameAroundDateAndMonthOnAnalogFace) {
+					canvas.drawRect(rectXleft,rectYtop,rectXright,rectYbottom,paintMediumOutline);
+					paintMediumOutline.setColor(Color.WHITE);
+					if (Preferences.DayOfMonthOnAnalogFace && !Preferences.ShowHorizontalOnAnalogFace)
+						canvas.drawRect(rectXleft+2,rectYtop+2,rectXright-2,rectYbottom,paintMediumOutline);
+					else
+						canvas.drawRect(rectXleft+2,rectYtop+2,rectXright-2,rectYbottom-2,paintMediumOutline);
+					paintMediumOutline.setColor(Color.BLACK);
+				}
 				
 				String dayOfWeek=cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
 				//crop to first 3 char. Using SHORT would not necessarily improve, FR locale for instance gives 4 char return, with '.' as last, for instance "MER."
 				dayOfWeek=dayOfWeek.substring(0,(dayOfWeek.length()<3 ? dayOfWeek.length() : 3)); 
 				
-				canvas.drawText(dayOfWeek, 27, 52, paintMediumOutline);
+				canvas.drawText(dayOfWeek, x, y, paintMediumOutline);
 			}
 		}
 

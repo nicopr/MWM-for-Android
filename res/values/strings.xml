@@ -415,5 +415,9 @@
 	<string name="settings_Leave_left_quickbutton_default_during_BiCo">Keep default quickbutton </string>
 	<string name="settings_Leave_left_quickbutton_default_during_BiCo_desc">action while BiCo widget is active</string>
 	<string name="settings_BiCo_widget">BiCo Widget</string>
+	<string name="settings_apps_analog_face_show_horizontal">Day and date</string>
+	<string name="settings_apps_analog_face_show_frame">Display a frame</string>
+	<string name="settings_apps_analog_face_show_frame_desc">around day of week and date</string>
+	<string name="settings_apps_analog_face_show_horizontal_desc">are displayed respectively at 9 and 3</string>
 	
 </resources>

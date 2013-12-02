@@ -226,6 +226,8 @@ public class MetaWatchService extends Service {
 		public static boolean clockOnAppScreens = false;
 		public static boolean DayOfMonthOnAnalogFace = false;
 		public static boolean DayOfWeekOnAnalogFace = false;
+		public static boolean FrameAroundDateAndMonthOnAnalogFace = true;
+		public static boolean ShowHorizontalOnAnalogFace = true;
 		public static boolean hiddenWidgetsReserveSpace = false;
 		public static boolean showTestWidgets = false;
 		public static boolean alignWidgetRowToBottom = false;
@@ -233,6 +235,7 @@ public class MetaWatchService extends Service {
 		public static String displayCalendars = "";
 		public static int calendarLookahead = 24;
 		public static boolean defaultQuickButtonLForBiCo = true;
+		
 	}
 
 	public final class WatchType {
@@ -393,6 +396,10 @@ public class MetaWatchService extends Service {
 				Preferences.DayOfMonthOnAnalogFace);
 		Preferences.DayOfWeekOnAnalogFace = sharedPreferences.getBoolean("DayOfWeekOnAnalogFaceApp",
 				Preferences.DayOfWeekOnAnalogFace);
+		Preferences.FrameAroundDateAndMonthOnAnalogFace = sharedPreferences.getBoolean("FrameAroundDateAndMonthOnAnalogFaceApp",
+				Preferences.FrameAroundDateAndMonthOnAnalogFace);
+		Preferences.ShowHorizontalOnAnalogFace = sharedPreferences.getBoolean("ShowHorizontalOnAnalogFaceApp",
+				Preferences.ShowHorizontalOnAnalogFace);
 		Preferences.showTestWidgets = sharedPreferences.getBoolean("TestWidgets", 
 				Preferences.showTestWidgets);
 		Preferences.hiddenWidgetsReserveSpace = sharedPreferences.getBoolean("HiddenWidgetsReserveSpace",
